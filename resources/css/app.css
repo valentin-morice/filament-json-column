@@ -1,0 +1,69 @@
+pre.prettyjson {
+    color: black;
+    background-color: ghostwhite;
+    padding: 20px 25px;
+    overflow: auto;
+}
+
+:is(.dark) pre.prettyjson {
+    opacity: .7;
+    --tw-bg-opacity: 1;
+    --tw-border-opacity: 1;
+    background-color: #161617;
+    color: rgb(209 213 219/var(--tw-text-opacity));
+}
+
+:is(.dark) pre.prettyjson span.json-key {
+    color: red !important;
+}
+
+:is(.dark) pre.prettyjson span.json-string {
+    color: aquamarine !important;
+}
+
+:is(.dark) pre.prettyjson span.json-value {
+    color: deepskyblue !important;
+}
+
+.master {
+    border-radius: 14px 14px 0 0;
+    border: #e5e7eb solid 1px;
+}
+
+.control {
+    cursor: pointer;
+}
+
+:is(.dark) .control:hover {
+    background-color: #161617;
+}
+
+.control:hover {
+    background-color: #F9FAFB;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom: #e5e7eb solid 1px;
+}
+
+:is(.dark) .container {
+    background-color: transparent !important;
+    border-bottom: hsla(0,0%,100%,.2) solid 1px !important;
+}
+
+:is(.dark) .master {
+    border: hsla(0,0%,100%,.2) solid 1px !important;
+}
+
+.active {
+    background-color: #F9FAFB;
+    box-shadow:0 -3px 0 0 slateblue inset;
+}
+
+:is(.dark) .active {
+    background-color: #161617 !important;
+}
