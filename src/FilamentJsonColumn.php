@@ -8,6 +8,10 @@ class FilamentJsonColumn extends Field
 {
     protected string $view = 'filament-json-column::index';
 
+    protected string $mode = '';
+
+    protected string $accent = 'slateblue';
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -20,5 +24,36 @@ class FilamentJsonColumn extends Field
 
             $component->state((array) $state);
         });
+    }
+
+    public function getMode(): string
+    {
+        return $this->mode;
+    }
+
+    public function getAccent(): string
+    {
+        return $this->accent;
+    }
+
+    public function editorOnly(): static
+    {
+        $this->mode = 'editor';
+
+        return $this;
+    }
+
+    public function viewerOnly(): static
+    {
+        $this->mode = 'viewer';
+
+        return $this;
+    }
+
+    public function accent(string $hexcode): static
+    {
+        $this->accent = $hexcode;
+
+        return $this;
     }
 }

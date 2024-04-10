@@ -26,7 +26,6 @@ pre.prettyjson {
 }
 
 .master {
-    border-radius: 14px 14px 0 0;
     border: #e5e7eb solid 1px;
 }
 
@@ -61,7 +60,6 @@ pre.prettyjson {
 
 .active {
     background-color: #F9FAFB;
-    box-shadow:0 -3px 0 0 slateblue inset;
 }
 
 :is(.dark) .active {
