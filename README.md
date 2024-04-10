@@ -18,19 +18,35 @@ composer require valentin-morice/filament-json-column
 
 ## Usage
 
-The filament-json-column plugin works as any other Filament Form Builder class. Make sure the column on which it is called is casted to JSON or array within your Eloquent model.
+The filament-json-column plugin works as any other Filament Form Builder class. Make sure the column on which it is called is casted to **JSON** or **array** within your Eloquent model.
 
 ```php
 public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                FilamentJsonColumn::make('custom-fields'),
+                FilamentJsonColumn::make('example'),
             ]);
     }
 ```
 
 It provides you with two tabs: `Viewer` & `Editor`. The `Viewer` tab pretty prints your JSON data, while the `Editor` tab lets you edit it conveniently.
+
+### Personnalize the accent color
+The tab selector menu uses the `slateblue` CSS color by default. However, you can chose any other color:
+```php
+FilamentJsonColumn::make('example')->accent('#FFFFFF') // The input needs to be a valid CSS color
+```
+
+### Display a single tab
+
+If you'd like to use only one of the tabs, without giving your user the possibility to switch to another, use the following methods:
+```php
+FilamentJsonColumn::make('example')->editorOnly() // Displays only the editor tab
+
+FilamentJsonColumn::make('example')->viewerOnly() // Displays only the viewer tab
+```
+
 
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
