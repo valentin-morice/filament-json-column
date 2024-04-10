@@ -1,8 +1,11 @@
-<div>
+<x-dynamic-component
+        :component="$getFieldWrapperView()"
+        :field="$field"
+    >
     <div class="overflow-hidden shadow-sm master"
          @style([
             'border-radius: 0.5rem 0.5rem 0 0;' => $getMode() === '',
-            'border-radius: 0;' => $getMode() === 'editor',
+            'border-radius: 0' => $getMode() === 'editor',
             'border-radius: 0.5rem;' => $getMode() === 'viewer',
          ])
          x-data="{
@@ -16,9 +19,6 @@
     >
     @if($getMode() === '')
             <div class="container">
-                <span class="font-medium text-sm py-3.5 px-4">
-                    {{ $getLabel() ? $getLabel() : $getName() }}
-                </span>
                 <div class="flex">
                     <div class="text-sm px-5 py-3.5 control"
                          x-on:click="display = 'viewer'"
@@ -131,4 +131,4 @@
             box-shadow:0 -3px 0 0 {{ $getAccent() }} inset;
         }
     </style>
-</div>
+</x-dynamic-component>
