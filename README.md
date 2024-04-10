@@ -1,11 +1,9 @@
 # filament-json-column
 
-A simple package to view and edit your JSON columns in Filament. Supports dark-mode.
+A simple package to view and edit your JSON columns in Filament.
 
-![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/79b3c63c-e657-43d1-b78b-01a1b91f4f6c)
-![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/b82ca746-4f1f-488d-81f9-ac0dc3b150f5)
-
-
+![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/41212480-f635-4d50-b967-cad5dbda6dc9)
+![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/29591beb-524b-4671-b4ea-d5ec6b1f5705)
 
 
 ## Installation
@@ -35,16 +33,15 @@ It provides you with two tabs: `Viewer` & `Editor`. The `Viewer` tab pretty prin
 ### Personnalize the accent color
 The tab selector menu uses the `slateblue` CSS color by default. However, you can chose any other color:
 ```php
-FilamentJsonColumn::make('example')->accent('#FFFFFF') // The input needs to be a valid CSS color
+FilamentJsonColumn::make('example')->accent('#FFFFFF'); // The input needs to be a valid CSS color
 ```
 
 ### Display a single tab
 
 If you'd like to use only one of the tabs, without giving your user the possibility to switch to another, use the following methods:
 ```php
-FilamentJsonColumn::make('example')->editorOnly() // Displays only the editor tab
-
-FilamentJsonColumn::make('example')->viewerOnly() // Displays only the viewer tab
+FilamentJsonColumn::make('example')->editorOnly(); // Displays only the editor tab
+FilamentJsonColumn::make('example')->viewerOnly(); // Displays only the viewer tab
 ```
 
 
