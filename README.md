@@ -44,6 +44,12 @@ FilamentJsonColumn::make('example')->editorOnly(); // Displays only the editor t
 FilamentJsonColumn::make('example')->viewerOnly(); // Displays only the viewer tab
 ```
 
+### Change the editor's height
+
+```php
+FilamentJsonColumn::make('example')->editorHeight(500); // Accepts an int, defaults to 300
+```
+
 
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
