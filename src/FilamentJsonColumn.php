@@ -12,6 +12,8 @@ class FilamentJsonColumn extends Field
 
     protected string $accent = 'slateblue';
 
+    protected int $editorHeight = 300;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -31,6 +33,11 @@ class FilamentJsonColumn extends Field
         return $this->mode;
     }
 
+    public function getEditorHeight(): string
+    {
+        return $this->editorHeight.'px';
+    }
+
     public function getAccent(): string
     {
         return $this->accent;
@@ -46,6 +53,13 @@ class FilamentJsonColumn extends Field
     public function viewerOnly(): static
     {
         $this->mode = 'viewer';
+
+        return $this;
+    }
+
+    public function editorHeight(int $heightInPx): static
+    {
+        $this->editorHeight = $heightInPx;
 
         return $this;
     }

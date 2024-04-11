@@ -31,6 +31,7 @@ pre.prettyjson {
 
 .control {
     cursor: pointer;
+    padding: 0.875rem 1.25rem;
 }
 
 :is(.dark) .control:hover {

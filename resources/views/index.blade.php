@@ -2,11 +2,13 @@
         :component="$getFieldWrapperView()"
         :field="$field"
     >
-    <div class="overflow-hidden shadow-sm master"
+    <div class="master"
          @style([
             'border-radius: 0.5rem 0.5rem 0 0;' => $getMode() === '',
             'border-radius: 0' => $getMode() === 'editor',
             'border-radius: 0.5rem;' => $getMode() === 'viewer',
+            'box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);',
+            'overflow: hidden;'
          ])
          x-data="{
                        state: $wire.entangle('{{ $getStatePath() }}'),
@@ -19,14 +21,14 @@
     >
     @if($getMode() === '')
             <div class="container">
-                <div class="flex">
-                    <div class="text-sm px-5 py-3.5 control"
+                <div style="display: flex; font-size: 0.875rem; line-height: 1.25rem;">
+                    <div class="control"
                          x-on:click="display = 'viewer'"
                          x-bind:class="display === 'viewer' ? 'active' : ''"
                     >
                         <div>Viewer</div>
                     </div>
-                    <div class="text-sm px-5 py-3.5 overflow-hidden control"
+                    <div class="control"
                          x-on:click="display = 'editor'"
                          x-bind:class="display === 'editor' ? 'active' : ''"
                     >
@@ -34,13 +36,13 @@
                     </div>
                 </div>
             </div>
-            <div class="text-sm content"
+            <div style="font-size: 0.875rem; line-height: 1.25rem;"
                  x-show="display === 'viewer'"
             >
                 <pre class="prettyjson" x-html="prettyJson"></span>
             </div>
-            <div x-show="display === 'editor'"class="text-sm p-1">
-                <div class="w-full"
+            <div x-show="display === 'editor'" style="padding: 0.25rem;">
+                <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
                      x-init="$nextTick(() => {
                     const options = {
                         modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
@@ -76,12 +78,12 @@
                      x-cloak
                      wire:ignore>
                     <div x-ref="editor" class="w-full ace_editor"
-                         style="min-height: 30vh;height:300px"></div>
+                         style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
     @elseif($getMode() === 'editor')
-            <div class="text-sm p-1">
-                <div class="w-full"
+            <div style="padding: 0.25rem;">
+                <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
                      x-init="$nextTick(() => {
                     const options = {
                         modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
@@ -121,9 +123,9 @@
                 </div>
             </div>
     @elseif($getMode() === 'viewer')
-        <div class="text-sm content">
+            <div style="font-size: 0.875rem; line-height: 1.25rem;">
                 <pre class="prettyjson" x-html="prettyJson"></span>
-        </div>
+            </div>
     @endif
     </div>
     <style>
