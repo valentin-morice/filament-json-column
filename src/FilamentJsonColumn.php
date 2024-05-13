@@ -3,7 +3,6 @@
 namespace ValentinMorice\FilamentJsonColumn;
 
 use Filament\Forms\Components\Field;
-use Livewire\Component as Livewire;
 
 class FilamentJsonColumn extends Field
 {
@@ -19,7 +18,7 @@ class FilamentJsonColumn extends Field
     {
         parent::setUp();
 
-        $this->beforeStateDehydrated(function(FilamentJsonColumn $component, Livewire $livewire, $state) {
+        $this->beforeStateDehydrated(function(FilamentJsonColumn $component, $state) {
             if (is_string($state)) {
                 $component->state(json_decode($state, true));
             }
