@@ -123,7 +123,7 @@
                      x-cloak
                      wire:ignore>
                     <div x-ref="editor" class="w-full ace_editor"
-                         style="min-height: 30vh;height:300px"></div>
+                         style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
     @elseif($getMode() === 'viewer')
