@@ -13,7 +13,11 @@
          x-data="{
                        state: $wire.entangle('{{ $getStatePath() }}'),
                        get prettyJson() {
-                           json = JSON.parse(this.state)
+                           try {
+                             json = JSON.parse(JSON.parse(JSON.stringify(this.state)))
+                           } catch {
+                             json = JSON.parse(JSON.stringify(this.state))
+                           }
                            return window.prettyPrint(json)
                        },
                        display: 'viewer'
@@ -127,12 +131,12 @@
                      x-cloak
                      wire:ignore>
                     <div x-ref="editor" class="w-full ace_editor"
-                         style="min-height: 30vh;height:300px"></div>
+                         style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
     @elseif($getMode() === 'viewer')
             <div style="font-size: 0.875rem; line-height: 1.25rem;">
-                <pre class="prettyjson" x-html="prettyJson"></span>
+                <pre class="prettyjson" x-html="prettyJson"></pre>
             </div>
     @endif
     </div>

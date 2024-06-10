@@ -18,13 +18,10 @@ class FilamentJsonColumn extends Field
     {
         parent::setUp();
 
-
-        $this->afterStateHydrated(static function (FilamentJsonColumn $component, $state): void {
-            if(is_array($state)) {
-                $state = json_encode($state);
+        $this->beforeStateDehydrated(function(FilamentJsonColumn $component, $state) {
+            if (is_string($state)) {
+                $component->state(json_decode($state, true));
             }
-
-            $component->state((array) $state);
         });
     }
 
