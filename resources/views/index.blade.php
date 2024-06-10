@@ -69,10 +69,14 @@
                     };
                     if(typeof json_editor !== 'undefined'){
                         json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(state));
+                        json_editor.set(JSON.parse(JSON.stringify(state)));
                     } else {
                         let json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(state));
+                        json_editor.set(JSON.parse(JSON.stringify(state)));
+
+                        $watch('state', (newState) => {
+                            json_editor.set(JSON.parse(JSON.stringify(state)));
+                        });
                     }
                  })"
                      x-cloak
@@ -110,10 +114,14 @@
                     };
                     if(typeof json_editor !== 'undefined'){
                         json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(state));
+                        json_editor.set(JSON.parse(JSON.stringify(state)));
                     } else {
                         let json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(state));
+                        json_editor.set(JSON.parse(JSON.stringify(state)));
+
+                        $watch('state', (newState) => {
+                            json_editor.set(JSON.parse(JSON.stringify(state)));
+                        });
                     }
                  })"
                      x-cloak
