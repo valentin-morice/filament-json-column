@@ -29,25 +29,26 @@ public static function form(Form $form): Form
 ```
 
 It provides you with two tabs: `Viewer` & `Editor`. The `Viewer` tab pretty prints your JSON data, while the `Editor` tab lets you edit it conveniently.
+All the methods provided by the plugin accept closures, injected with standard Filament [utilities](https://filamentphp.com/docs/3.x/forms/advanced#form-component-utility-injection).
 
 ### Personnalize the accent color
-The tab selector menu uses the `slateblue` CSS color by default. However, you can chose any other color:
+The tab selector menu uses the `slateblue` CSS color by default. However, you can choose any other color:
 ```php
-FilamentJsonColumn::make('example')->accent('#FFFFFF'); // The input needs to be a valid CSS color
+FilamentJsonColumn::make('example')->accent(string '#FFFFFF'|Closure); // The input needs to be a valid CSS color
 ```
 
 ### Display a single tab
 
 If you'd like to use only one of the tabs, without giving your user the possibility to switch to another, use the following methods:
 ```php
-FilamentJsonColumn::make('example')->editorOnly(); // Displays only the editor tab
-FilamentJsonColumn::make('example')->viewerOnly(); // Displays only the viewer tab
+FilamentJsonColumn::make('example')->editorOnly(bool|Closure); // Displays only the editor tab
+FilamentJsonColumn::make('example')->viewerOnly(bool|Closure); // Displays only the viewer tab
 ```
 
 ### Change the editor's height
 
 ```php
-FilamentJsonColumn::make('example')->editorHeight(500); // Accepts an int, defaults to 300
+FilamentJsonColumn::make('example')->editorHeight(int 500|Closure); // Accepts an int, defaults to 300
 ```
 
 

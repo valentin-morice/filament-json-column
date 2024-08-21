@@ -2,7 +2,10 @@
 
 namespace ValentinMorice\FilamentJsonColumn;
 
+use Closure;
+use Exception;
 use Filament\Forms\Components\Field;
+use Filament\Support\Concerns\EvaluatesClosures;
 
 class FilamentJsonColumn extends Field
 {
@@ -10,9 +13,13 @@ class FilamentJsonColumn extends Field
 
     protected string $mode = '';
 
-    protected string $accent = 'slateblue';
+    protected bool | Closure $editorMode = false;
 
-    protected int $editorHeight = 300;
+    protected bool | Closure $viewerMode = false;
+
+    protected string | Closure $accent = 'slateblue';
+
+    protected int | Closure $editorHeight = 300;
 
     protected function setUp(): void
     {
@@ -32,36 +39,46 @@ class FilamentJsonColumn extends Field
 
     public function getEditorHeight(): string
     {
-        return $this->editorHeight.'px';
+        return $this->evaluate($this->editorHeight).'px';
     }
 
     public function getAccent(): string
     {
-        return $this->accent;
+        return $this->evaluate($this->accent);
     }
 
-    public function editorOnly(): static
+    public function getEditorMode(): bool
     {
-        $this->mode = 'editor';
+        return $this->evaluate($this->editorMode);
+    }
+
+    public function getViewerMode(): bool
+    {
+        return $this->evaluate($this->viewerMode);
+    }
+
+    public function editorOnly(Closure|bool $bool = true): static
+    {
+        $this->editorMode = $bool;
 
         return $this;
     }
 
-    public function viewerOnly(): static
+    public function viewerOnly(Closure|bool $bool = true): static
     {
-        $this->mode = 'viewer';
+        $this->viewerMode = $bool;
 
         return $this;
     }
 
-    public function editorHeight(int $heightInPx): static
+    public function editorHeight(Closure|int $heightInPx): static
     {
         $this->editorHeight = $heightInPx;
 
         return $this;
     }
 
-    public function accent(string $hexcode): static
+    public function accent(Closure|string $hexcode): static
     {
         $this->accent = $hexcode;
 

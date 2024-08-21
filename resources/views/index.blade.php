@@ -23,7 +23,7 @@
                        display: 'viewer'
                     }"
     >
-    @if($getMode() === '')
+    @if(! $getEditorMode() && ! $getViewerMode())
             <div class="container">
                 <div style="display: flex; font-size: 0.875rem; line-height: 1.25rem;">
                     <div class="control"
@@ -43,7 +43,7 @@
             <div style="font-size: 0.875rem; line-height: 1.25rem;"
                  x-show="display === 'viewer'"
             >
-                <pre class="prettyjson" x-html="prettyJson"></span>
+                <pre class="prettyjson" x-html="prettyJson"></pre>
             </div>
             <div x-show="display === 'editor'" style="padding: 0.25rem;">
                 <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
@@ -85,7 +85,7 @@
                          style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
-    @elseif($getMode() === 'editor')
+    @elseif($getEditorMode())
             <div style="padding: 0.25rem;">
                 <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
                      x-init="$nextTick(() => {
@@ -126,7 +126,7 @@
                          style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
-    @elseif($getMode() === 'viewer')
+    @elseif($getViewerMode())
             <div style="font-size: 0.875rem; line-height: 1.25rem;">
                 <pre class="prettyjson" x-html="prettyJson"></pre>
             </div>
