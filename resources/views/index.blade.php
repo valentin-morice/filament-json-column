@@ -4,9 +4,9 @@
     >
     <div class="master"
          @style([
-            'border-radius: 0.5rem 0.5rem 0 0;' => $getMode() === '',
-            'border-radius: 0' => $getMode() === 'editor',
-            'border-radius: 0.5rem;' => $getMode() === 'viewer',
+            'border-radius: 0.5rem 0.5rem 0 0;' => !$getEditorMode && !$getViewerMode,
+            'border-radius: 0' => $getEditorMode() === true,
+            'border-radius: 0.5rem;' => $getViewerMode() === true,
             'box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);',
             'overflow: hidden;'
          ])

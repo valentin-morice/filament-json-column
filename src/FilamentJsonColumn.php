@@ -3,15 +3,11 @@
 namespace ValentinMorice\FilamentJsonColumn;
 
 use Closure;
-use Exception;
 use Filament\Forms\Components\Field;
-use Filament\Support\Concerns\EvaluatesClosures;
 
 class FilamentJsonColumn extends Field
 {
     protected string $view = 'filament-json-column::index';
-
-    protected string $mode = '';
 
     protected bool | Closure $editorMode = false;
 
@@ -30,11 +26,6 @@ class FilamentJsonColumn extends Field
                 $component->state(json_decode($state, true));
             }
         });
-    }
-
-    public function getMode(): string
-    {
-        return $this->mode;
     }
 
     public function getEditorHeight(): string
