@@ -127,7 +127,7 @@
                 </div>
             </div>
     @elseif($getViewerMode())
-            <div style="font-size: 0.875rem; line-height: 1.25rem;">
+            <div style="font-size: 0.875rem; line-height: 1.25rem;min-height: 30vh;height:{{ $getEditorHeight() }};overflow: auto;">
                 <pre class="prettyjson" x-html="prettyJson"></pre>
             </div>
     @endif
