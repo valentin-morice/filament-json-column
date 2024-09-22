@@ -22,6 +22,14 @@
                        },
                        display: 'viewer'
                     }"
+        x-load-css="[
+            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('app')),
+            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('jsoneditor-css-cdn'))
+        ]"
+        x-load-js="[
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('app')),
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('jsoneditor-js-cdn'))
+        ]"
     >
     @if(! $getEditorMode() && ! $getViewerMode())
             <div class="container">
