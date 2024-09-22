@@ -22,6 +22,14 @@
                        },
                        display: 'viewer'
                     }"
+        x-load-css="[
+            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('app')),
+            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('jsoneditor-css-cdn'))
+        ]"
+        x-load-js="[
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('app')),
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('jsoneditor-js-cdn'))
+        ]"
     >
     @if(! $getEditorMode() && ! $getViewerMode())
             <div class="container">
@@ -127,7 +135,7 @@
                 </div>
             </div>
     @elseif($getViewerMode())
-            <div style="font-size: 0.875rem; line-height: 1.25rem;">
+            <div style="font-size: 0.875rem; line-height: 1.25rem;min-height: 30vh;height:{{ $getEditorHeight() }};overflow: auto;">
                 <pre class="prettyjson" x-html="prettyJson"></pre>
             </div>
     @endif
