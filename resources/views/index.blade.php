@@ -4,7 +4,7 @@
     >
     <div class="master"
          @style([
-            'border-radius: 0.5rem 0.5rem 0 0;' => !$getEditorMode && !$getViewerMode,
+            'border-radius: 0.5rem 0.5rem 0 0;' => !$getEditorMode() && !$getViewerMode(),
             'border-radius: 0' => $getEditorMode() === true,
             'border-radius: 0.5rem;' => $getViewerMode() === true,
             'box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);',
@@ -22,14 +22,6 @@
                        },
                        display: 'viewer'
                     }"
-        x-load-css="[
-            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('app')),
-            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('jsoneditor-css-cdn'))
-        ]"
-        x-load-js="[
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('app')),
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('jsoneditor-js-cdn'))
-        ]"
     >
     @if(! $getEditorMode() && ! $getViewerMode())
             <div class="container">
@@ -48,95 +40,153 @@
                     </div>
                 </div>
             </div>
-            <div style="font-size: 0.875rem; line-height: 1.25rem;"
+            <div style="font-size: 0.875rem; line-height: 1.25rem; height:{{ $getViewerHeight() }}; overflow: auto;"
                  x-show="display === 'viewer'"
             >
-                <pre class="prettyjson" x-html="prettyJson"></pre>
+                <pre class="prettyjson" x-html="prettyJson" style="height: 100%"></pre>
             </div>
             <div x-show="display === 'editor'" style="padding: 0.25rem;">
                 <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
-                     x-init="$nextTick(() => {
-                    const options = {
-                        modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
-                        history: true,
-                        onChange: function(){
+                     x-data="{
+                        internalChange: false,
+                        resetInternalChange() {
+                            setTimeout(() => {
+                                this.internalChange = false;
+                            }, 100);
                         },
-                        onChangeJSON: function(json){
-                            state=JSON.stringify(json);
-                        },
-                        onChangeText: function(jsonString){
-                            state=jsonString;
-                        },
-                        onValidationError: function (errors) {
-                            errors.forEach((error) => {
-                              switch (error.type) {
-                                case 'validation': // schema validation error
-                                  break;
-                                case 'error':  // json parse error
-                                    console.log(error.message);
-                                  break;
-                              }
-                            })
+                        initializeEditor(value) {
+                            const options = {
+                                modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+                                history: true,
+                                onChange: function(){
+                                },
+                                onChangeJSON: function(json){
+                                    this.internalChange = true;
+                                    state = json;
+                                    this.resetInternalChange();  // Debounced reset
+                                },
+                                onChangeText: (jsonString) => {
+                                    this.internalChange = true;
+                                    state = jsonString;
+                                    this.resetInternalChange();  // Debounced reset
+                                },
+                                onValidationError: function (errors) {
+                                    errors.forEach((error) => {
+                                        switch (error.type) {
+                                            case 'validation':
+                                                // schema validation error
+                                                break;
+                                            case 'error':
+                                                // json parse error
+                                                console.log(error.message);
+                                                break;
+                                        }
+                                    });
+                                }
+                            };
+
+                            // If editor already exists, re-initialize it with updated state
+                            if (typeof json_editor !== 'undefined') {
+                                json_editor.destroy();
+                            }
+
+
+                            json_editor = new JSONEditor($refs.editor, options);
+                            if (typeof value === 'string') {
+                                json_editor.set(JSON.parse(value));
+                            } else {
+                                json_editor.set(value);
+                            }
                         }
-                    };
-                    if(typeof json_editor !== 'undefined'){
-                        json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(JSON.stringify(state)));
-                    } else {
-                        let json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(JSON.stringify(state)));
-                    }
-                 })"
+                     }"
+                     x-init="
+                     initializeEditor(state)
+                     $watch('state', (value) => {
+                        // Only reinitialize the editor if change is external
+                        if (!internalChange) {
+                            initializeEditor(value);
+                        }
+                    })
+                     "
                      x-cloak
                      wire:ignore>
                     <div x-ref="editor" class="w-full ace_editor"
-                         style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
+                         style="height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
     @elseif($getEditorMode())
             <div style="padding: 0.25rem;">
                 <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
-                     x-init="$nextTick(() => {
-                    const options = {
-                        modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
-                        history: true,
-                        onChange: function(){
+                     x-data="{
+                        internalChange: false,
+                        resetInternalChange() {
+                            setTimeout(() => {
+                                this.internalChange = false;
+                            }, 100);
                         },
-                        onChangeJSON: function(json){
-                            state=JSON.stringify(json);
-                        },
-                        onChangeText: function(jsonString){
-                            state=jsonString;
-                        },
-                        onValidationError: function (errors) {
-                            errors.forEach((error) => {
-                              switch (error.type) {
-                                case 'validation': // schema validation error
-                                  break;
-                                case 'error':  // json parse error
-                                    console.log(error.message);
-                                  break;
-                              }
-                            })
+                        initializeEditor(value) {
+                            const options = {
+                                modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
+                                history: true,
+                                onChange: function(){
+                                },
+                                onChangeJSON: function(json){
+                                    this.internalChange = true;
+                                    state = json;
+                                    this.resetInternalChange();  // Debounced reset
+                                },
+                                onChangeText: (jsonString) => {
+                                    this.internalChange = true;
+                                    state = jsonString;
+                                    this.resetInternalChange();  // Debounced reset
+                                },
+                                onValidationError: function (errors) {
+                                    errors.forEach((error) => {
+                                        switch (error.type) {
+                                            case 'validation':
+                                                // schema validation error
+                                                break;
+                                            case 'error':
+                                                // json parse error
+                                                console.log(error.message);
+                                                break;
+                                        }
+                                    });
+                                }
+                            };
+
+                            // If editor already exists, re-initialize it with updated state
+                            if (typeof json_editor !== 'undefined') {
+                                json_editor.destroy();
+                            }
+
+
+                            json_editor = new JSONEditor($refs.editor, options);
+                            if (typeof value === 'string') {
+                                json_editor.set(JSON.parse(value));
+                            } else {
+                                json_editor.set(value);
+                            }
                         }
-                    };
-                    if(typeof json_editor !== 'undefined'){
-                        json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(JSON.stringify(state)));
-                    } else {
-                        let json_editor = new JSONEditor($refs.editor, options);
-                        json_editor.set(JSON.parse(JSON.stringify(state)));
-                    }
-                 })"
+                     }"
+                     x-init="
+                     initializeEditor(state)
+                     $watch('state', (value) => {
+                        // Only reinitialize the editor if change is external
+                        if (!internalChange) {
+                            initializeEditor(value);
+                        }
+                    })
+                    "
                      x-cloak
                      wire:ignore>
                     <div x-ref="editor" class="w-full ace_editor"
-                         style="min-height: 30vh;height:{{ $getEditorHeight() }}"></div>
+                         style="height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
     @elseif($getViewerMode())
-            <div style="font-size: 0.875rem; line-height: 1.25rem;min-height: 30vh;height:{{ $getEditorHeight() }};overflow: auto;">
-                <pre class="prettyjson" x-html="prettyJson"></pre>
+            <div style="font-size: 0.875rem; line-height: 1.25rem; height:{{ $getViewerHeight() }}; overflow: auto;">
+                <pre class="prettyjson" x-html="prettyJson" style="height: 100%"></pre>
             </div>
     @endif
     </div>

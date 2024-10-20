@@ -28,10 +28,10 @@ class FilamentJsonColumnServiceProvider extends PackageServiceProvider
     public function packageBooted(): void
     {
         FilamentAsset::register([
-            Js::make('jsoneditor-js-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.js')->loadedOnRequest(),
-            Js::make('app', __DIR__ . '/../resources/js/app.js')->loadedOnRequest(),
-            Css::make('app', __DIR__ . '/../resources/css/app.css')->loadedOnRequest(),
-            Css::make('jsoneditor-css-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.css')->loadedOnRequest(),
+            Js::make('jsoneditor-js-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.js'),
+            Js::make('app', __DIR__ . '/../resources/js/app.js'),
+            Css::make('app', __DIR__ . '/../resources/css/app.css'),
+            Css::make('jsoneditor-css-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.css'),
         ]);
     }
 }
