@@ -45,10 +45,11 @@ FilamentJsonColumn::make('example')->editorOnly(bool|Closure); // Displays only 
 FilamentJsonColumn::make('example')->viewerOnly(bool|Closure); // Displays only the viewer tab
 ```
 
-### Change the editor's height
+### Change the height
 
 ```php
 FilamentJsonColumn::make('example')->editorHeight(int 500|Closure); // Accepts an int, defaults to 300
+FilamentJsonColumn::make('example')->viewerHeight(int 500|Closure); // Accepts an int, defaults to 300
 ```
 
 
