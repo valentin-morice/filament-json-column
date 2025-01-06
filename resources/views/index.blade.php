@@ -2,6 +2,9 @@
         :component="$getFieldWrapperView()"
         :field="$field"
     >
+    @php
+        $uniqid = uniqid();
+    @endphp
     <div class="master"
          @style([
             'border-radius: 0.5rem 0.5rem 0 0;' => !$getEditorMode() && !$getViewerMode(),
@@ -11,12 +14,12 @@
             'overflow: hidden;'
          ])
          x-data="{
-                       state: $wire.entangle('{{ $getStatePath() }}'),
+                       state{{ $uniqid }}: $wire.entangle('{{ $getStatePath() }}'),
                        get prettyJson() {
                            try {
-                             json = JSON.parse(JSON.parse(JSON.stringify(this.state)))
+                             json = JSON.parse(JSON.parse(JSON.stringify(this.state{{ $uniqid }})))
                            } catch {
-                             json = JSON.parse(JSON.stringify(this.state))
+                             json = JSON.parse(JSON.stringify(this.state{{ $uniqid }}))
                            }
                            return window.prettyPrint(json)
                        },
@@ -48,27 +51,27 @@
             <div x-show="display === 'editor'" style="padding: 0.25rem;">
                 <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
                      x-data="{
-                        internalChange: false,
-                        resetInternalChange() {
+                        internalChange{{ $uniqid }}: false,
+                        resetinternalChange{{ $uniqid }}() {
                             setTimeout(() => {
-                                this.internalChange = false;
+                                this.internalChange{{ $uniqid }} = false;
                             }, 100);
                         },
-                        initializeEditor(value) {
+                        initializeEditor{{ $uniqid }}(value) {
                             const options = {
                                 modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
                                 history: true,
                                 onChange: function(){
                                 },
                                 onChangeJSON: function(json){
-                                    this.internalChange = true;
-                                    state = json;
-                                    this.resetInternalChange();  // Debounced reset
+                                    this.internalChange{{ $uniqid }} = true;
+                                    state{{ $uniqid }} = json;
+                                    this.resetinternalChange{{ $uniqid }}();  // Debounced reset
                                 },
                                 onChangeText: (jsonString) => {
-                                    this.internalChange = true;
-                                    state = jsonString;
-                                    this.resetInternalChange();  // Debounced reset
+                                    this.internalChange{{ $uniqid }} = true;
+                                    state{{ $uniqid }} = jsonString;
+                                    this.resetinternalChange{{ $uniqid }}();  // Debounced reset
                                 },
                                 onValidationError: function (errors) {
                                     errors.forEach((error) => {
@@ -86,31 +89,31 @@
                             };
 
                             // If editor already exists, re-initialize it with updated state
-                            if (typeof json_editor !== 'undefined') {
-                                json_editor.destroy();
+                            if (typeof json_editor{{ $uniqid }} !== 'undefined') {
+                                json_editor{{ $uniqid }}.destroy();
                             }
 
 
-                            json_editor = new JSONEditor($refs.editor, options);
+                            json_editor{{ $uniqid }} = new JSONEditor($refs.editor{{ $uniqid }}, options);
                             if (typeof value === 'string') {
-                                json_editor.set(JSON.parse(value));
+                                json_editor{{ $uniqid }}.set(JSON.parse(value));
                             } else {
-                                json_editor.set(value);
+                                json_editor{{ $uniqid }}.set(value);
                             }
                         }
                      }"
                      x-init="
-                     initializeEditor(state)
-                     $watch('state', (value) => {
+                     initializeEditor{{ $uniqid }}(state{{ $uniqid }})
+                     $watch('state{{ $uniqid }}', (value) => {
                         // Only reinitialize the editor if change is external
-                        if (!internalChange) {
-                            initializeEditor(value);
+                        if (!internalChange{{ $uniqid }}) {
+                            initializeEditor{{ $uniqid }}(value);
                         }
                     })
                      "
                      x-cloak
                      wire:ignore>
-                    <div x-ref="editor" class="w-full ace_editor"
+                    <div x-ref="editor{{ $uniqid }}" class="w-full ace_editor"
                          style="height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
@@ -118,27 +121,27 @@
             <div style="padding: 0.25rem;">
                 <div style="width: 100%; font-size: 0.875rem; line-height: 1.25rem;"
                      x-data="{
-                        internalChange: false,
-                        resetInternalChange() {
+                        internalChange{{ $uniqid }}: false,
+                        resetinternalChange{{ $uniqid }}() {
                             setTimeout(() => {
-                                this.internalChange = false;
+                                this.internalChange{{ $uniqid }} = false;
                             }, 100);
                         },
-                        initializeEditor(value) {
+                        initializeEditor{{ $uniqid }}(value) {
                             const options = {
                                 modes: ['code', 'form', 'text', 'tree', 'view', 'preview'],
                                 history: true,
                                 onChange: function(){
                                 },
                                 onChangeJSON: function(json){
-                                    this.internalChange = true;
-                                    state = json;
-                                    this.resetInternalChange();  // Debounced reset
+                                    this.internalChange{{ $uniqid }} = true;
+                                    state{{ $uniqid }} = json;
+                                    this.resetinternalChange{{ $uniqid }}();  // Debounced reset
                                 },
                                 onChangeText: (jsonString) => {
-                                    this.internalChange = true;
-                                    state = jsonString;
-                                    this.resetInternalChange();  // Debounced reset
+                                    this.internalChange{{ $uniqid }} = true;
+                                    state{{ $uniqid }} = jsonString;
+                                    this.resetinternalChange{{ $uniqid }}();  // Debounced reset
                                 },
                                 onValidationError: function (errors) {
                                     errors.forEach((error) => {
@@ -155,32 +158,32 @@
                                 }
                             };
 
-                            // If editor already exists, re-initialize it with updated state
-                            if (typeof json_editor !== 'undefined') {
-                                json_editor.destroy();
+                            // If editor already exists, re-initialize it with updated state{{ $uniqid }}
+                            if (typeof json_editor{{ $uniqid }} !== 'undefined') {
+                                json_editor{{ $uniqid }}.destroy();
                             }
 
 
-                            json_editor = new JSONEditor($refs.editor, options);
+                            json_editor{{ $uniqid }} = new JSONEditor($refs.editor{{ $uniqid }}, options);
                             if (typeof value === 'string') {
-                                json_editor.set(JSON.parse(value));
+                                json_editor{{ $uniqid }}.set(JSON.parse(value));
                             } else {
-                                json_editor.set(value);
+                                json_editor{{ $uniqid }}.set(value);
                             }
                         }
                      }"
                      x-init="
-                     initializeEditor(state)
-                     $watch('state', (value) => {
+                     initializeEditor{{ $uniqid }}(state{{ $uniqid }})
+                     $watch('state{{ $uniqid }}', (value) => {
                         // Only reinitialize the editor if change is external
-                        if (!internalChange) {
-                            initializeEditor(value);
+                        if (!internalChange{{ $uniqid }}) {
+                            initializeEditor{{ $uniqid }}(value);
                         }
                     })
                     "
                      x-cloak
                      wire:ignore>
-                    <div x-ref="editor" class="w-full ace_editor"
+                    <div x-ref="editor{{ $uniqid }}" class="w-full ace_editor"
                          style="height:{{ $getEditorHeight() }}"></div>
                 </div>
             </div>
