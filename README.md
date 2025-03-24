@@ -52,6 +52,19 @@ FilamentJsonColumn::make('example')->editorHeight(int 500|Closure); // Accepts a
 FilamentJsonColumn::make('example')->viewerHeight(int 500|Closure); // Accepts an int, defaults to 300
 ```
 
+### Editor modes
+Customize the editor modes. Accepted values (and default) are: ['code', 'form', 'text', 'tree', 'view', 'preview' ] 
+```php
+FilamentJsonColumn::make('example')->accent(array|Closure ['code', 'text', 'tree']);
+```
+
+### Validation
+
+If the value provided by the user isn't valid JSON, submission gets locked. A notification is displayed if the user still tries to submit his form. The notification message can be customized. Defaults to 'Fix the invalid JSON values'. 
+```php
+FilamentJsonColumn::make('example')->errorMessage(string|Closure __('json.error')); // Support for locale strings
+```
+
 
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
