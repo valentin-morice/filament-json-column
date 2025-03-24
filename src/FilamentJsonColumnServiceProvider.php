@@ -29,9 +29,9 @@ class FilamentJsonColumnServiceProvider extends PackageServiceProvider
     {
         FilamentAsset::register([
             Js::make('jsoneditor-js-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.js'),
-            Js::make('app', __DIR__ . '/../resources/js/app.js'),
-            Css::make('app', __DIR__ . '/../resources/css/app.css'),
+            Js::make('filament-json-column-js', __DIR__ . '/../resources/js/filament-json-column.js'),
+            Css::make('filament-json-column', __DIR__ . '/../resources/css/filament-json-column.css'),
             Css::make('jsoneditor-css-cdn', 'https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/10.0.2/jsoneditor.min.css'),
-        ]);
+        ], 'filament-json-column');
     }
 }

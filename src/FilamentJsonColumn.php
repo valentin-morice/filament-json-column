@@ -1,9 +1,11 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace ValentinMorice\FilamentJsonColumn;
 
 use Closure;
 use Filament\Forms\Components\Field;
+use Filament\Notifications\Notification;
+use Illuminate\Validation\ValidationException;
 
 class FilamentJsonColumn extends Field
 {
@@ -19,13 +21,28 @@ class FilamentJsonColumn extends Field
 
     protected int | Closure $viewerHeight = 308;
 
+    protected array | Closure  $modes = ['code', 'form', 'text', 'tree', 'view', 'preview' ];
+
     protected function setUp(): void
     {
         parent::setUp();
 
         $this->beforeStateDehydrated(function(FilamentJsonColumn $component, $state) {
             if (is_string($state)) {
-                $component->state(json_decode($state, true));
+                $decodedState = json_decode($state, true);
+
+                if (json_last_error() !== JSON_ERROR_NONE) {
+                    $field = ucfirst($component->getName());
+
+                    Notification::make()
+                        ->title('Fix the invalid JSON values')
+                        ->danger()
+                        ->send();
+
+                    throw ValidationException::withMessages([]);
+                }
+
+                $component->state($decodedState);
             }
         });
     }
@@ -55,6 +72,11 @@ class FilamentJsonColumn extends Field
         return $this->evaluate($this->viewerMode);
     }
 
+    public function getModes(): array
+    {
+        return $this->evaluate($this->modes);
+    }
+
     public function editorOnly(Closure|bool $bool = true): static
     {
         $this->editorMode = $bool;
@@ -79,6 +101,22 @@ class FilamentJsonColumn extends Field
     public function viewerHeight(Closure|int $heightInPx): static
     {
         $this->viewerHeight = $heightInPx;
+
+        return $this;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function editorModes(Closure|array $modes): static
+    {
+        foreach ((array) $modes as $mode) {
+            if (!in_array($mode, $this->modes, true)) {
+                throw new \Exception("Invalid parameter: " . json_encode($modes) . ". Allowed values are: " . implode(', ', $this->modes));
+            }
+        }
+
+        $this->modes = $modes;
 
         return $this;
     }
