@@ -11,6 +11,8 @@ class FilamentJsonColumn extends Field
 {
     protected string $view = 'filament-json-column::index';
 
+    protected string $errorMessage = '';
+
     protected bool | Closure $editorMode = false;
 
     protected bool | Closure $viewerMode = false;
@@ -32,10 +34,8 @@ class FilamentJsonColumn extends Field
                 $decodedState = json_decode($state, true);
 
                 if (json_last_error() !== JSON_ERROR_NONE) {
-                    $field = ucfirst($component->getName());
-
                     Notification::make()
-                        ->title('Fix the invalid JSON values')
+                        ->title($component->getErrorMessage() ?? 'Fix the invalid JSON values')
                         ->danger()
                         ->send();
 
@@ -75,6 +75,18 @@ class FilamentJsonColumn extends Field
     public function getModes(): array
     {
         return $this->evaluate($this->modes);
+    }
+
+    public function getErrorMessage(): string
+    {
+        return $this->evaluate($this->errorMessage);
+    }
+
+    public function errorMessage(Closure|string $message): static
+    {
+        $this->errorMessage = $message;
+
+        return $this;
     }
 
     public function editorOnly(Closure|bool $bool = true): static
