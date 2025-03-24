@@ -35,7 +35,7 @@ class FilamentJsonColumn extends Field
 
                 if (json_last_error() !== JSON_ERROR_NONE) {
                     Notification::make()
-                        ->title($component->getErrorMessage() ?? 'Fix the invalid JSON values')
+                        ->title($component->getErrorMessage() === '' ? 'Fix the invalid JSON values' : $component->getErrorMessage())
                         ->danger()
                         ->send();
 
