@@ -1,5 +1,8 @@
 # filament-json-column
 
+## v2.0 BREAKING CHANGE
+Class is now named `JsonColum/JsonInfolist`, previously `FilamentJsonColumn`
+
 A simple package to view and edit your JSON columns in Filament.
 
 ![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/41212480-f635-4d50-b967-cad5dbda6dc9)
