@@ -25,11 +25,25 @@ class JsonColumn extends Field
     {
         parent::setUp();
 
-        $this->rule('json');
+        $this->rules([
+            fn (): Closure => function (string $attribute, $value, Closure $fail) {
+                $rule = is_array($value) || (is_string($value) && json_validate($value));
+
+                if (!$rule) {
+                    $fail(__('validation.json'));
+                }
+            }
+        ]);
 
         $this->afterStateHydrated(function (JsonColumn $component, $state) {
             if (is_array($state)) {
-                $component->state(json_encode($state, JSON_PRETTY_PRINT));
+                $component->state(json_encode($state, JSON_FORCE_OBJECT));
+            }
+        });
+
+        $this->beforeStateDehydrated(function (JsonColumn $component, $state) {
+            if (is_string($state)) {
+                $component->state(json_decode($state, true));
             }
         });
     }
