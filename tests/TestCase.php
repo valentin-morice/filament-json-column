@@ -2,20 +2,10 @@
 
 namespace ValentinMorice\FilamentJsonColumn\Tests;
 
-use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
-use BladeUI\Icons\BladeIconsServiceProvider;
-use Filament\Actions\ActionsServiceProvider;
-use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
-use Filament\Infolists\InfolistsServiceProvider;
-use Filament\Notifications\NotificationsServiceProvider;
 use Filament\Support\SupportServiceProvider;
-use Filament\Tables\TablesServiceProvider;
-use Filament\Widgets\WidgetsServiceProvider;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 use ValentinMorice\FilamentJsonColumn\FilamentJsonColumnServiceProvider;
 
 class TestCase extends Orchestra
@@ -23,5 +13,21 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
+    }
+
+    protected function getPackageProviders($app): array
+    {
+        return [
+            LivewireServiceProvider::class,
+            FormsServiceProvider::class,
+            SupportServiceProvider::class,
+            FilamentJsonColumnServiceProvider::class,
+        ];
+    }
+
+    protected function getEnvironmentSetUp($app): void
+    {
+        config()->set('database.default', 'testing');
+        config()->set('app.key', 'base64:AckfSECXI/7zz/iuZR99w6z2g3WBpKF8+D+X/0Fk5tI=');
     }
 }

@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace ValentinMorice\FilamentJsonColumn;
 
@@ -9,17 +11,17 @@ class JsonColumn extends Field
 {
     protected string $view = 'filament-json-column::index';
 
-    protected bool | Closure $editorMode = false;
+    protected bool|Closure $editorMode = false;
 
-    protected bool | Closure $viewerMode = false;
+    protected bool|Closure $viewerMode = false;
 
-    protected string | Closure $accent = 'slateblue';
+    protected string|Closure $accent = 'slateblue';
 
-    protected int | Closure $editorHeight = 300;
+    protected int|Closure $editorHeight = 300;
 
-    protected int | Closure $viewerHeight = 308;
+    protected int|Closure $viewerHeight = 308;
 
-    protected array | Closure  $modes = ['code', 'form', 'text', 'tree', 'view', 'preview' ];
+    protected array|Closure $modes = ['code', 'form', 'text', 'tree', 'view', 'preview'];
 
     protected function setUp(): void
     {
@@ -29,10 +31,10 @@ class JsonColumn extends Field
             fn (): Closure => function (string $attribute, $value, Closure $fail) {
                 $rule = is_array($value) || (is_string($value) && json_validate($value));
 
-                if (!$rule) {
+                if (! $rule) {
                     $fail(__('validation.json'));
                 }
-            }
+            },
         ]);
 
         $this->afterStateHydrated(function (JsonColumn $component, $state) {
@@ -112,8 +114,8 @@ class JsonColumn extends Field
     public function editorModes(Closure|array $modes): static
     {
         foreach ((array) $modes as $mode) {
-            if (!in_array($mode, $this->modes, true)) {
-                throw new \Exception("Invalid parameter: " . json_encode($modes) . ". Allowed values are: " . implode(', ', $this->modes));
+            if (! in_array($mode, $this->modes, true)) {
+                throw new \Exception('Invalid parameter: '.json_encode($modes).'. Allowed values are: '.implode(', ', $this->modes));
             }
         }
 

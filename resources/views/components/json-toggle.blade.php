@@ -2,6 +2,7 @@
         id: {{ \Illuminate\Support\Js::from($uniqid) }},
         jsonError: $persist(false).as(`jsonError-${this.id}`)
     }"
+     id="toggle-component"
      x-init="if (jsonError) jsonError = false"
      x-on:json-error-triggered.window="if ($event.detail === id) jsonError = true"
      x-on:json-error-cleared.window="if ($event.detail === id) jsonError = false">
