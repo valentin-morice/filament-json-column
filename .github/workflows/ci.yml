@@ -23,10 +23,10 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: composer install -q --no-interaction
 
       - name: Run Pint (Format Check)
-        run: composer format -- --test
+        run: composer format --test
 
       - name: Run Pest Tests
-        run: composer test
+        run: composer test --compact
