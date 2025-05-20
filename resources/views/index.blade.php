@@ -8,7 +8,7 @@
         $display = $getViewerMode() ? 'viewer' : 'editor';
     @endphp
 
-    <div class="master"
+    <div class="fi-json-column master"
          @style([
              'border-radius: 0.5rem 0.5rem 0 0;' => $is_default,
              'border-radius: 0' => $getEditorMode() === true,
