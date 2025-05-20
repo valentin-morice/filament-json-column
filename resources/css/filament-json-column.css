@@ -1,11 +1,11 @@
-pre.prettyjson {
+.fi-json-column pre.prettyjson {
     color: black;
     background-color: ghostwhite;
     padding: 20px 25px;
     overflow: auto;
 }
 
-:is(.dark) pre.prettyjson {
+:is(.dark) .fi-json-column pre.prettyjson {
     opacity: .7;
     --tw-bg-opacity: 1;
     --tw-border-opacity: 1;
@@ -13,36 +13,36 @@ pre.prettyjson {
     color: rgb(209 213 219/var(--tw-text-opacity));
 }
 
-:is(.dark) pre.prettyjson span.json-key {
+:is(.dark) .fi-json-column pre.prettyjson span.json-key {
     color: red !important;
 }
 
-:is(.dark) pre.prettyjson span.json-string {
+:is(.dark) .fi-json-column pre.prettyjson span.json-string {
     color: aquamarine !important;
 }
 
-:is(.dark) pre.prettyjson span.json-value {
+:is(.dark) .fi-json-column pre.prettyjson span.json-value {
     color: deepskyblue !important;
 }
 
-.master {
+.master.fi-json-column {
     border: #e5e7eb solid 1px;
 }
 
-.control {
+.fi-json-column .control {
     cursor: pointer;
     padding: 0.875rem 1.25rem;
 }
 
-:is(.dark) .control:hover {
+:is(.dark) .fi-json-column .control:hover {
     background-color: #161617;
 }
 
-.control:hover {
+.fi-json-column .control:hover {
     background-color: #F9FAFB;
 }
 
-.container {
+.fi-json-column .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -50,19 +50,19 @@ pre.prettyjson {
     border-bottom: #e5e7eb solid 1px;
 }
 
-:is(.dark) .container {
+:is(.dark) .fi-json-column .container {
     background-color: transparent !important;
     border-bottom: hsla(0,0%,100%,.2) solid 1px !important;
 }
 
-:is(.dark) .master {
+:is(.dark) .fi-json-column .master {
     border: hsla(0,0%,100%,.2) solid 1px !important;
 }
 
-.active {
+.fi-json-column .active {
     background-color: #F9FAFB;
 }
 
-:is(.dark) .active {
+:is(.dark) .fi-json-column .active {
     background-color: #161617 !important;
 }
