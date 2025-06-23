@@ -4,7 +4,7 @@ namespace ValentinMorice\FilamentJsonColumn\Tests\Support;
 
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Livewire\Component;
 use ValentinMorice\FilamentJsonColumn\JsonColumn;
 
@@ -21,7 +21,7 @@ class FormTestComponent extends Component implements HasForms
         $this->form->fill();
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
         $component = JsonColumn::make('json');
 
@@ -29,7 +29,7 @@ class FormTestComponent extends Component implements HasForms
             $component = $component->{$method}($value);
         }
 
-        return $form
+        return $schema
             ->schema([
                 $component,
             ])
@@ -50,6 +50,7 @@ class FormTestComponent extends Component implements HasForms
 
     public function save(): void
     {
+        $this->validate();
         $formData = $this->form->getState();
     }
-}
+} 

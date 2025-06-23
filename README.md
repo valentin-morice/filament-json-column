@@ -1,11 +1,15 @@
 # filament-json-column
 
+## v3.0 - Filament 4 Support
+
+Now supports **Filament 4.x** with the new unified schema system!
+
 ## v2.0 BREAKING CHANGE
 Class is now named `JsonColum/JsonInfolist`, previously `FilamentJsonColumn`
 
 ---
 
-A simple package to view and edit your JSON columns in Filament.
+A simple package to view and edit your JSON columns in Filament 4.
 
 ![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/41212480-f635-4d50-b967-cad5dbda6dc9)
 ![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/29591beb-524b-4671-b4ea-d5ec6b1f5705)
@@ -26,19 +30,20 @@ The filament-json-column plugin works as any other Filament Form Builder classes
 ```php
 use ValentinMorice\FilamentJsonColumn\JsonColumn;
 use ValentinMorice\FilamentJsonColumn\JsonInfolist;
+use Filament\Schemas\Schema;
 
-public static function form(Form $form): Form
+public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 JsonColumn::make('example'),
             ]);
     }
 
 // An infolist component is also available.
-public static function infolist(Infolist $infolist): Infolist
+public static function infolist(Schema $schema): Schema
     {
-        return $infolist
+        return $schema
             ->schema([
                 JsonInfolist::make('example'),
             ]);
@@ -46,7 +51,7 @@ public static function infolist(Infolist $infolist): Infolist
 ```
 
 The form component provides you with two tabs: `Viewer` & `Editor`. The `Viewer` tab pretty prints your JSON data, while the `Editor` tab lets you edit it conveniently.
-All the methods provided by the plugin accept closures, injected with standard Filament [utilities](https://filamentphp.com/docs/3.x/forms/advanced#form-component-utility-injection).
+All the methods provided by the plugin accept closures, injected with standard Filament [utilities](https://filamentphp.com/docs/4.x/schemas/advanced#form-component-utility-injection).
 
 ### Personnalize the accent color
 The tab selector menu uses the `slateblue` CSS color by default. However, you can choose any other color:
@@ -79,6 +84,11 @@ JsonColumn::make('example')->accent(array|Closure ['code', 'text', 'tree']);
 
 Values are validated as proper JSON by default. 
 
+## Compatibility
+
+- **Filament 4.x** (Filament 3.x support discontinued)
+- **Laravel 11.x**
+- **PHP 8.2+**
 
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
