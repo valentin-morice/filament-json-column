@@ -17,6 +17,8 @@ composer require valentin-morice/filament-json-column
 
 To try out the upcoming v3.0, compatible with Filament v4, you can require the `dev` branch directly.
 
+Thanks to [@safwendammak](https://github.com/safwendammak) for his pull-request.
+
 **Note: This branch is under active development and may contain unstable code.**
 
 Add the following to your `composer.json`:
