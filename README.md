@@ -13,7 +13,7 @@ You can install the stable version of the package via composer:
 composer require valentin-morice/filament-json-column
 ```
 
-## Pre-Release / Dev Version (v3.0 Beta)
+## Pre-Release / Dev Version (v3.0)
 
 To try out the upcoming v3.0, compatible with Filament v4, you can require the `dev` branch directly.
 
