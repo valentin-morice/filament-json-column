@@ -39,7 +39,7 @@ class JsonColumn extends Field
 
         $this->afterStateHydrated(function (JsonColumn $component, $state) {
             if (is_array($state)) {
-                $component->state(json_encode($state, JSON_FORCE_OBJECT));
+                $component->state(json_encode($state));
             }
         });
 
