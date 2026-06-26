@@ -16,7 +16,7 @@
                     'active': display === 'viewer',
                  }"
             >
-                <div>Viewer</div>
+                <div>{{ __('filament-json-column::json-column.viewer') }}</div>
             </div>
             <div class="control"
                  x-on:click="!jsonError && (display = 'editor')"
@@ -24,7 +24,7 @@
                     'active': display === 'editor',
                  }"
             >
-                <div>Editor</div>
+                <div>{{ __('filament-json-column::json-column.editor') }}</div>
             </div>
         </div>
     </div>

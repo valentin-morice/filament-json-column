@@ -84,6 +84,16 @@ JsonColumn::make('example')->modes(array|Closure ['code', 'text', 'tree']);
 
 Values are validated as proper JSON by default.
 
+## Translations
+
+The `Viewer` and `Editor` tab labels are translatable. Publish the translation files to customize them or add your own locale:
+
+```bash
+php artisan vendor:publish --tag="filament-json-column-translations"
+```
+
+This copies the files to `lang/vendor/filament-json-column/{locale}/json-column.php`. The displayed language follows your application's locale.
+
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
 
