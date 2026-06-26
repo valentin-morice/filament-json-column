@@ -86,13 +86,26 @@ Values are validated as proper JSON by default.
 
 ## Translations
 
-The `Viewer` and `Editor` tab labels are translatable. Publish the translation files to customize them or add your own locale:
+The `Viewer` and `Editor` tab labels are translatable. The package ships with English only, so the labels stay in English (the fallback) until you provide a translation for your application's locale.
+
+To translate or override them, publish the language files:
 
 ```bash
 php artisan vendor:publish --tag="filament-json-column-translations"
 ```
 
-This copies the files to `lang/vendor/filament-json-column/{locale}/json-column.php`. The displayed language follows your application's locale.
+This copies the English file to `lang/vendor/filament-json-column/en/json-column.php`. Add a file for each locale you want to support, for example `lang/vendor/filament-json-column/fr/json-column.php`:
+
+```php
+<?php
+
+return [
+    'viewer' => 'Visionneuse',
+    'editor' => 'Éditeur',
+];
+```
+
+The labels then follow your application's locale, falling back to English when no translation exists for it.
 
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
