@@ -35,9 +35,13 @@ jobs:
           coverage: none
 
       - name: Install dependencies
+        # --no-security-blocking: Composer 2.9 blocks installing framework releases
+        # flagged by security advisories. All current Laravel 11.x releases are flagged,
+        # which would fail the Laravel 11 matrix on a framework issue unrelated to this
+        # package. We only test compatibility here, so don't block on framework advisories.
         run: |
           composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
-          composer update --prefer-dist --no-interaction --no-progress
+          composer update --prefer-dist --no-interaction --no-progress --no-security-blocking
 
       - name: Run Pint (Format Check)
         run: composer format --test
