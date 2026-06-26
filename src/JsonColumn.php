@@ -43,10 +43,11 @@ class JsonColumn extends Field
             }
         });
 
-        $this->beforeStateDehydrated(function (JsonColumn $component, $state) {
-            if (is_string($state)) {
-                $component->state(json_decode($state, true));
-            }
+        // The editor works with a JSON *string* as its live state. On dehydration we
+        // decode it back to a PHP array so the model (e.g. an `array`/`json` cast)
+        // stores a proper JSON object rather than a double-encoded JSON string.
+        $this->dehydrateStateUsing(function ($state) {
+            return is_string($state) ? json_decode($state, true) : $state;
         });
     }
 
