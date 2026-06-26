@@ -6,9 +6,9 @@ Now supports **Filament 5.x** (with Livewire 4)!
 
 ## Version Compatibility
 
-- **v4.x**: Filament 5.x, Laravel 11.x / 12.x, PHP 8.2+
-- **v3.x**: Filament 4.x, Laravel 11.x, PHP 8.2+ (maintenance branch)
-- **v2.x**: Filament 3.x, Laravel 10.x+, PHP 8.1+ (maintenance branch)
+- **v4.x**: Filament 5.x, Laravel 11.x / 12.x, PHP 8.2+ (actively maintained)
+- **v3.x**: Filament 4.x (no longer maintained)
+- **v2.x**: Filament 3.x (no longer maintained)
 
 A simple package to view and edit your JSON columns in Filament.
 

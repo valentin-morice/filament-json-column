@@ -81,11 +81,14 @@ it('always outputs an array', function () {
         'count' => 5,
     ];
 
+    // The live form state stays a JSON string; the package only converts it back to
+    // an array on dehydration (so the model receives a clean array). Assert on the
+    // dehydrated state captured during save() rather than the live property.
     Livewire::test(FormTestComponent::class)
         ->fill(['data' => ['json' => '{"city":"Paris", "active":false, "count":5}']])
         ->call('save')
         ->assertHasNoFormErrors()
-        ->assertSet('data.json', $expected);
+        ->assertSet('saved.json', $expected);
 });
 
 it('fails when state is not a valid json string', function () {

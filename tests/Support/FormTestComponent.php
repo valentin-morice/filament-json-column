@@ -16,6 +16,8 @@ class FormTestComponent extends Component implements HasForms
 
     public ?array $options = [];
 
+    public ?array $saved = null;
+
     public function mount(): void
     {
         $this->form->fill();
@@ -51,6 +53,6 @@ class FormTestComponent extends Component implements HasForms
     public function save(): void
     {
         $this->validate();
-        $formData = $this->form->getState();
+        $this->saved = $this->form->getState();
     }
 }
