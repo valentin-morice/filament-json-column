@@ -113,3 +113,23 @@ it('does not show toggle on editor or viewer mode', function () {
     ])
         ->assertDontSee('toggle-component');
 });
+
+it('renders the default english toggle labels', function () {
+    Livewire::test(FormTestComponent::class)
+        ->assertSee('Viewer')
+        ->assertSee('Editor');
+});
+
+it('translates the toggle labels for the active locale', function () {
+    app('translator')->addLines([
+        'json-column.viewer' => 'Mirador',
+        'json-column.editor' => 'Redactor',
+    ], 'xx', 'filament-json-column');
+
+    app()->setLocale('xx');
+
+    Livewire::test(FormTestComponent::class)
+        ->assertSee('Mirador')
+        ->assertSee('Redactor')
+        ->assertDontSee('Viewer');
+});
