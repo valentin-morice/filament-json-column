@@ -4,26 +4,40 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   test:
-    name: Run Format & Tests
+    name: PHP ${{ matrix.php }} / Laravel ${{ matrix.laravel }}
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3', '8.4']
+        laravel: [11, 12]
+        include:
+          - laravel: 11
+            testbench: '^9.0'
+          - laravel: 12
+            testbench: '^10.0'
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          extensions: mbstring, bcmath
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, bcmath, intl
           tools: composer
           coverage: none
 
       - name: Install dependencies
-        run: composer install -q --no-interaction
+        run: |
+          composer require "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
+          composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run Pint (Format Check)
         run: composer format --test

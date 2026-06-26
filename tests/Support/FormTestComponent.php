@@ -53,4 +53,4 @@ class FormTestComponent extends Component implements HasForms
         $this->validate();
         $formData = $this->form->getState();
     }
-} 
+}

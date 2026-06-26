@@ -16,9 +16,9 @@
                     modes: {{ \Illuminate\Support\Js::from($modes) }},
                     history: false,
                     onChange: function(){},
-                    onChangeJSON: function(json){
+                    onChangeJSON: (json) => {
                         this.internalChange = true;
-                        state = json;
+                        state = JSON.stringify(json);
                         this.resetInternalChange();
                         $dispatch('json-error-cleared', id);
                     },

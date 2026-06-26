@@ -1,15 +1,16 @@
 # filament-json-column
 
-## v3.0 - Filament 4 Support
+## v4.0 - Filament 5 Support
 
-Now supports **Filament 4.x** with the new unified schema system!
+Now supports **Filament 5.x** (with Livewire 4)!
 
 ## Version Compatibility
 
-- **v3.x**: Filament 4.x, Laravel 11.x, PHP 8.2+
+- **v4.x**: Filament 5.x, Laravel 11.x / 12.x, PHP 8.2+
+- **v3.x**: Filament 4.x, Laravel 11.x, PHP 8.2+ (maintenance branch)
 - **v2.x**: Filament 3.x, Laravel 10.x+, PHP 8.1+ (maintenance branch)
 
-A simple package to view and edit your JSON columns in Filament 4.
+A simple package to view and edit your JSON columns in Filament.
 
 ![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/41212480-f635-4d50-b967-cad5dbda6dc9)
 ![image](https://github.com/valentin-morice/filament-json-column/assets/100000204/29591beb-524b-4671-b4ea-d5ec6b1f5705)
