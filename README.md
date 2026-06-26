@@ -6,9 +6,7 @@ Now supports **Filament 5.x** (with Livewire 4)!
 
 ## Version Compatibility
 
-- **v4.x**: Filament 5.x, Laravel 11.x / 12.x, PHP 8.2+ (actively maintained)
-- **v3.x**: Filament 4.x (no longer maintained)
-- **v2.x**: Filament 3.x (no longer maintained)
+- **v4.x**: Filament 5.x, Laravel 11.x / 12.x, PHP 8.2+
 
 A simple package to view and edit your JSON columns in Filament.
 
@@ -22,12 +20,6 @@ You can install the package via composer:
 
 ```bash
 composer require valentin-morice/filament-json-column
-```
-
-For Filament 3.x support, use version 2.x:
-
-```bash
-composer require valentin-morice/filament-json-column:^2.0
 ```
 
 ## Usage
@@ -90,13 +82,6 @@ JsonColumn::make('example')->modes(array|Closure ['code', 'text', 'tree']);
 ### Validation
 
 Values are validated as proper JSON by default.
-
-## Compatibility
-
-- **Filament 4.x** (v3.x of this package)
-- **Filament 3.x** (v2.x of this package - see 2.x branch)
-- **Laravel 11.x**
-- **PHP 8.2+**
 
 ## Credits
 I've taken inspiration from the following plugins: [Pretty JSON](https://github.com/novadaemon/filament-pretty-json) & [JSONeditor](https://github.com/invaders-xx/filament-jsoneditor).
