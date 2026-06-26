@@ -50,7 +50,8 @@ public static function infolist(Schema $schema): Schema
 ```
 
 The form component provides you with two tabs: `Viewer` & `Editor`. The `Viewer` tab pretty prints your JSON data, while the `Editor` tab lets you edit it conveniently.
-All the methods provided by the plugin accept closures, injected with standard Filament [utilities](https://filamentphp.com/docs/4.x/schemas/advanced#form-component-utility-injection).
+All the methods provided by the plugin accept closures, injected with standard Filament [utilities](https://filamentphp.com/docs/5.x/schemas/overview#component-utility-inje
+ction).
 
 ### Personalize the accent color
 The tab selector menu uses the `slateblue` CSS color by default. However, you can choose any other color:
