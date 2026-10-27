@@ -77,7 +77,7 @@ JsonColumn::make('example')->viewerHeight(int 500|Closure); // Accepts an int, d
 ### Editor modes
 Customize the editor modes. Accepted values (and default) are: `['code', 'form', 'text', 'tree', 'view', 'preview']`
 ```php
-JsonColumn::make('example')->modes(array|Closure ['code', 'text', 'tree']);
+JsonColumn::make('example')->editorModes(array|Closure ['code', 'text', 'tree']);
 ```
 
 ### Validation
